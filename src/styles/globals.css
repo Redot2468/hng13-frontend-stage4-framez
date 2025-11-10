@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form-input {
+    @apply border border-neutral-400 px-5 rounded-md focus:border-neutral-900 focus:outline-none focus:border;
+  }
+}

@@ -1,5 +1,5 @@
-import { View } from "react-native-reanimated/lib/typescript/Animated";
+import { View } from "react-native";
 
-export function Index() {
+export default function Index() {
   return <View>Create post</View>;
 }

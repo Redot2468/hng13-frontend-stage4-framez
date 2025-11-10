@@ -1,5 +1,6 @@
 import React from "react";
+import { View } from "react-native";
 
 export default function Index() {
-  return <div>Profile</div>;
+  return <View>Profile</View>;
 }

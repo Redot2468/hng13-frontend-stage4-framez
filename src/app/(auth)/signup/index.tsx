@@ -1,5 +1,10 @@
-import { View } from "react-native-reanimated/lib/typescript/Animated";
+import SignupForm from "@/src/components/auth/SignupForm";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export function Index() {
-  return <View>Signup</View>;
+export default function Index() {
+  return (
+    <SafeAreaView>
+      <SignupForm />
+    </SafeAreaView>
+  );
 }
