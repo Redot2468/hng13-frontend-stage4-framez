@@ -65,7 +65,10 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={"dark-content"} />
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      </Stack>
       <Toast position="top" />
     </SafeAreaProvider>
   );

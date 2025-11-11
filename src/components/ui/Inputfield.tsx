@@ -2,7 +2,14 @@ import { SignupSchemaType } from "@/src/lib/schema/auth-schema";
 import { Eye, EyeClosed } from "lucide-react-native";
 import React, { useState } from "react";
 import { Control, Controller } from "react-hook-form";
-import { Pressable, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  StyleProp,
+  Text,
+  TextInput,
+  TextStyle,
+  View,
+} from "react-native";
 
 export interface InputfieldType {
   control: Control<SignupSchemaType>;
@@ -10,6 +17,7 @@ export interface InputfieldType {
   placeholder: string;
   error: string | undefined;
   disabled: boolean;
+  style?: StyleProp<TextStyle>;
 }
 
 export default function InputField({
@@ -18,6 +26,7 @@ export default function InputField({
   name,
   error,
   disabled,
+  style,
 }: InputfieldType) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -55,6 +64,7 @@ export default function InputField({
               placeholder={placeholder}
               className="form-input"
               editable={!disabled}
+              style={style}
             />
           )
         }
