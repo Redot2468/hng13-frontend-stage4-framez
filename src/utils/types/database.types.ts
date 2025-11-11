@@ -20,6 +20,7 @@ export type Database = {
           created_at: string
           id: string
           postimage: string | null
+          profile_id: string | null
           user_id: string | null
         }
         Insert: {
@@ -27,6 +28,7 @@ export type Database = {
           created_at?: string
           id?: string
           postimage?: string | null
+          profile_id?: string | null
           user_id?: string | null
         }
         Update: {
@@ -34,9 +36,18 @@ export type Database = {
           created_at?: string
           id?: string
           postimage?: string | null
+          profile_id?: string | null
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "posts_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
