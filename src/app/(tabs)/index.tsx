@@ -1,43 +1,13 @@
-import { signOutAction } from "@/src/lib/actions/auth-action";
-import { useRouter } from "expo-router";
-import { useTransition } from "react";
-import { Button, Text, View } from "react-native";
-import Toast from "react-native-toast-message";
+import React from "react";
+import { ScrollView, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
-  const router = useRouter();
-  const [isSigningOut, startTransition] = useTransition();
-
-  // temporary remove later
-
-  function onSignOut() {
-    startTransition(async () => {
-      const res = await signOutAction();
-      if (res?.error) {
-        Toast.show({
-          type: "error",
-          text1: "Sign out error",
-          text2: res.error,
-        });
-      }
-    });
-  }
-
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Button title="signup" onPress={() => router.replace("/signup")}></Button>
-
-      <Button title="sign out" onPress={onSignOut}></Button>
-    </View>
+    <SafeAreaView className="flex-1">
+      <ScrollView className="flex-1 px-6">
+        <Text className="">Feeds</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-// create signout functionality
-// create signin functionality
