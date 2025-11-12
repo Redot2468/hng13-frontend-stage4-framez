@@ -1,3 +1,4 @@
+import { signOutAction } from "@/src/lib/actions/auth-action";
 import { updateAvatarAction } from "@/src/lib/actions/user-action";
 import { getSession } from "@/src/utils/user-session";
 import { useQuery } from "@tanstack/react-query";
@@ -69,6 +70,17 @@ export default function ProfileDetails() {
     setIsUpdatingAvatar(false);
   }
 
+  async function onSignOut() {
+    const res = await signOutAction();
+
+    if (res?.error) {
+      Toast.show({
+        type: "error",
+        text1: res?.error,
+      });
+    }
+  }
+
   return (
     <View
       className="items-center gap-4 border-b  border-neutral-200 pt-8 pb-8 px-6"
@@ -110,7 +122,10 @@ export default function ProfileDetails() {
         <Text className="text-lg text-neutral-600">{data?.email}</Text>
       </View>
 
-      <Pressable className="bg-red-100 py-3.5 px-8 rounded-lg ">
+      <Pressable
+        className="bg-red-100 py-3.5 px-8 rounded-lg "
+        onPress={onSignOut}
+      >
         <Text className="text-red-600">Sign out</Text>
       </Pressable>
     </View>
