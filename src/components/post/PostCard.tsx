@@ -20,7 +20,7 @@ export default function PostCard({ post }: { post: Post }) {
       key={post?.id}
       className="border-b flex-row gap-3 py-3 border-neutral-200"
     >
-      <View className="size-11">
+      <View className="size-11 rounded-full overflow-hidden">
         {post?.profiles?.avatar ? (
           <Image
             source={{ uri: post?.profiles?.avatar }}

@@ -1,11 +1,9 @@
-import { PostSchema, PostSchemaType } from "@/src/lib/schema/post-schema";
 import { supabase } from "@/src/lib/supabase";
 import { queryClient } from "@/src/lib/tanstack-query/query-client";
 import { getSession } from "@/src/utils/user-session";
 import { decode } from "base64-arraybuffer";
 
-export async function createPostAction(
-  formData: PostSchemaType,
+export async function updateAvatarAction(
   base64Image: string | null | undefined,
   imageMimeType: string | null | undefined
 ) {
@@ -15,18 +13,6 @@ export async function createPostAction(
     return { error: "You are not permitted to carry out this operation." };
   }
 
-  const validatingData = PostSchema.safeParse(formData);
-  if (!validatingData?.success) {
-    const inputsWithErrors = Object.keys(
-      validatingData?.error?.flatten()?.fieldErrors
-    );
-
-    return {
-      error: `Something went wrong validating this fields: ${inputsWithErrors?.join(", ")}`,
-    };
-  }
-
-  const { content } = validatingData?.data;
   try {
     let publicUrl;
 
@@ -50,14 +36,10 @@ export async function createPostAction(
     }
 
     // create post.
-    const { error } = await supabase.from("posts").insert([
-      {
-        content,
-        postimage: publicUrl,
-        user_id: user?.user_id,
-        profile_id: user?.id,
-      },
-    ]);
+    const { error } = await supabase
+      .from("profiles")
+      .update({ avatar: publicUrl })
+      .eq("id", user?.id);
 
     if (error) {
       if (process.env.NODE_ENV === "development") {
@@ -67,17 +49,17 @@ export async function createPostAction(
     }
 
     // Revalidate data fetching to refetch data
-    queryClient.invalidateQueries({ queryKey: ["feeds"] });
+    queryClient.invalidateQueries({ queryKey: ["user"] });
     queryClient.invalidateQueries({ queryKey: ["user-feeds"] });
 
-    return { success: "Post successfully published" };
+    return { success: "Avatar successfully changed" };
   } catch (error) {
     if (error instanceof Error) {
       if (process.env.NODE_ENV === "development") {
         console.error(error);
       }
 
-      return { error: "Something went wrong publishing post" };
+      return { error: "Something went wrong changing avatar" };
     }
   }
 }

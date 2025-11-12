@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   return (
-    <SafeAreaView className="flex-1">
-      <ScrollView className="flex-1 px-6 py-6 bg-white  flex flex-col ">
+    <SafeAreaView className="flex-1 bg-white">
+      <ScrollView className="flex-1 px-6 pb-6 pt-6  flex flex-col ">
         <Text className="text-2xl font-bold ">Feeds</Text>
 
         {/* Posts: Todo: Put them in a seperate component */}
