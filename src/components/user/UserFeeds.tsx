@@ -1,4 +1,5 @@
 import PostCard from "@/src/components/post/PostCard";
+import PostSkeleton from "@/src/components/skeletons/PostSkeletons";
 import { getUserFeeds } from "@/src/lib/services/feeds-service";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -11,15 +12,25 @@ export default function UserFeeds() {
   });
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View className="mt-3 pb-32">
+        {Array.from({ length: 6 })?.map((_, idx) => (
+          <PostSkeleton key={idx} />
+        ))}
+      </View>
+    );
   }
 
   if (error) {
-    return <Text>{error?.message}</Text>;
+    return (
+      <View className="flex items-center justify-center mt-20">
+        <Text className="text-center">{error?.message}</Text>
+      </View>
+    );
   }
 
   return (
-    <View className="mt-10 px-6">
+    <View className="mt-10 px-6 pb-32">
       <Text className="text-2xl font-bold capitalize mt-">Your posts</Text>
 
       <View className=" mt-3 ">

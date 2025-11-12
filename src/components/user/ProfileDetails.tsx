@@ -1,3 +1,4 @@
+import ProfileHeaderSkeleton from "@/src/components/skeletons/ProfileDetailsSkeleton";
 import { signOutAction } from "@/src/lib/actions/auth-action";
 import { updateAvatarAction } from "@/src/lib/actions/user-action";
 import { getSession } from "@/src/utils/user-session";
@@ -31,8 +32,6 @@ export default function ProfileDetails() {
       quality: 0.8,
     });
 
-    // console.log("result:", result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       setImageBase64(result?.assets?.at(0)?.base64);
@@ -41,7 +40,13 @@ export default function ProfileDetails() {
   }
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View className="mt-3 pb-32">
+        {Array.from({ length: 6 })?.map((_, idx) => (
+          <ProfileHeaderSkeleton key={idx} />
+        ))}
+      </View>
+    );
   }
 
   if (error) {

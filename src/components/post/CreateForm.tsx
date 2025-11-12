@@ -69,8 +69,6 @@ export default function CreateForm() {
       quality: 0.8,
     });
 
-    // console.log("result:", result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       setImageBase64(result?.assets?.at(0)?.base64);

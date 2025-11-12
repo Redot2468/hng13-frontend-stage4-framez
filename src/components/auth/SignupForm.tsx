@@ -22,12 +22,8 @@ export default function SignupForm() {
   const areAllInputsFilled = formInputsValues?.every((value) => value);
 
   function onSubmit(formData: SignupSchemaType) {
-    console.log(formData);
-
     startTransition(async () => {
       const res = await signupAction(formData);
-
-      console.log(isSigningUp, "signing upp");
 
       if (res?.data) {
         Toast.show({
@@ -51,7 +47,7 @@ export default function SignupForm() {
 
   return (
     <ScrollView>
-      <View className="border-2 border-black items-center justify-center h-screen gap-7 px-6 ">
+      <View className=" items-center justify-center h-screen gap-7 px-6 ">
         <Logo />
         <View className="justify-center items-center gap-2">
           <Text className="text-3xl  font-bold">Sign up</Text>

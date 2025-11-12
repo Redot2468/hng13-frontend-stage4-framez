@@ -45,7 +45,7 @@ export default function LoginForm() {
 
   return (
     <ScrollView>
-      <View className="border-2 border-black items-center justify-center h-screen gap-7 px-6 bg-white">
+      <View className=" items-center justify-center h-screen gap-7 px-6 bg-white">
         <Logo />
         <View className="justify-center items-center gap-2">
           <Text className="text-3xl  font-bold">Sign in</Text>

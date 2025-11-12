@@ -23,7 +23,6 @@ export async function getUserFeeds() {
     throw new Error("An Error occured trying to get user personal feeds.");
   }
 
-  console.log(data, "data:");
   return data;
 }
 

@@ -1,4 +1,5 @@
 import PostCard from "@/src/components/post/PostCard";
+import PostSkeleton from "@/src/components/skeletons/PostSkeletons";
 import { getFeeds } from "@/src/lib/services/feeds-service";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -13,16 +14,18 @@ export default function Feeds() {
 
   if (isLoading) {
     return (
-      <View>
-        <Text>Loading...</Text>
+      <View className="mt-3 pb-32">
+        {Array.from({ length: 6 })?.map((_, idx) => (
+          <PostSkeleton key={idx} />
+        ))}
       </View>
     );
   }
 
   if (error) {
     return (
-      <View>
-        <Text>{error?.message}</Text>
+      <View className="flex items-center justify-center mt-20">
+        <Text className="text-center">{error?.message}</Text>
       </View>
     );
   }

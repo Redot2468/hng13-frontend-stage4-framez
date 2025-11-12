@@ -1,11 +1,12 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 
+import LoadingOverlay from "@/src/components/skeletons/AnimatedLogo";
 import { supabase } from "@/src/lib/supabase";
 import { queryClient } from "@/src/lib/tanstack-query/query-client";
 import { Session } from "@supabase/supabase-js";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { StatusBar, Text, View } from "react-native";
+import { StatusBar, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import "../styles/globals.css";
@@ -57,7 +58,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <SafeAreaView>
           <View className=" items-center justify-center h-screen">
-            <Text className="text-lg">Session loading...</Text>
+            <LoadingOverlay visible={sessionLoading} />
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

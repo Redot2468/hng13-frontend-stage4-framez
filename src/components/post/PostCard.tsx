@@ -53,14 +53,14 @@ export default function PostCard({ post }: { post: Post }) {
             <>
               {post.content}
               <Pressable onPress={toggleExpand}>
-                <Text className="text-neutral-500 text-sm"> Show less</Text>
+                <Text className="text-neutral-500"> Show less</Text>
               </Pressable>
             </>
           ) : isLongText && !isExpanded ? (
             <>
               {`${post.content.slice(0, POST_CHAR_LENGTH)}...`}
               <Pressable onPress={toggleExpand}>
-                <Text className="text-neutral-500 text-sm"> Show more</Text>
+                <Text className="text-neutral-500"> Show more</Text>
               </Pressable>
             </>
           ) : (
