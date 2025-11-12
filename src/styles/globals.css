@@ -9,3 +9,9 @@
     @apply border border-neutral-400 px-5 rounded-md focus:border-neutral-900 focus:outline-none focus:border;
   }
 }
+
+@layer utilities {
+  .shadow-custom {
+    box-shadow: 3px 3px 30px #cac8c8;
+  }
+}
