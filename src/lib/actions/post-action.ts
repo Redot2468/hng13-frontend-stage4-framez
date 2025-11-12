@@ -1,6 +1,7 @@
 import { PostSchema, PostSchemaType } from "@/src/lib/schema/post-schema";
 import { supabase } from "@/src/lib/supabase";
-import { getUser } from "@/src/utils/user-session";
+import { queryClient } from "@/src/lib/tanstack-query/query-client";
+import { getSession } from "@/src/utils/user-session";
 import { decode } from "base64-arraybuffer";
 
 export async function createPostAction(
@@ -8,8 +9,9 @@ export async function createPostAction(
   base64Image: string | null | undefined,
   imageMimeType: string | null | undefined
 ) {
-  const user = await getUser();
-  if (!user?.id) {
+  const user = await getSession();
+
+  if (!user?.id || !user?.user_id) {
     return { error: "You are not permitted to carry out this operation." };
   }
 
@@ -39,7 +41,6 @@ export async function createPostAction(
         .upload(fileName, decode(pureBase64), { contentType: imageMimeType });
 
       if (mediaError) {
-        console.log(user?.role);
         throw new Error(`Media: ${mediaError?.message}`);
       }
 
@@ -49,15 +50,24 @@ export async function createPostAction(
     }
 
     // create post.
-    const { error } = await supabase
-      .from("posts")
-      .insert([{ content, postimage: publicUrl, user_id: user?.id }]);
+    const { error } = await supabase.from("posts").insert([
+      {
+        content,
+        postimage: publicUrl,
+        user_id: user?.user_id,
+        profile_id: user?.id,
+      },
+    ]);
 
     if (error) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
       throw new Error(error?.message);
     }
 
     // Revalidate data fetching to refetch data
+    queryClient.invalidateQueries({ queryKey: ["feeds"] });
 
     return { success: "Post successfully published" };
   } catch (error) {

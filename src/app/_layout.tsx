@@ -1,7 +1,9 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 
 import { supabase } from "@/src/lib/supabase";
+import { queryClient } from "@/src/lib/tanstack-query/query-client";
 import { Session } from "@supabase/supabase-js";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { StatusBar, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -65,10 +67,12 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={"dark-content"} />
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      <QueryClientProvider client={queryClient}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </QueryClientProvider>
       <Toast position="top" />
     </SafeAreaProvider>
   );

@@ -82,7 +82,7 @@ export async function signupAction(formData: SignupSchemaType) {
 
   if (data?.user) {
     const { error: userProfileError } = await supabase
-      .from("users")
+      .from("profiles")
       .insert([{ name, email, avatar: "", user_id: data?.user?.id }])
       .select();
 
